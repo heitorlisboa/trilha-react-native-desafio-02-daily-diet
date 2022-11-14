@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { cssFontSizeAndLineHeight } from '@app/utils/css-font-size-and-line-height';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled(SafeAreaView)`
   flex: 1;
 
   background-color: ${({ theme }) => theme.colors['gray-50']};

@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { defaultTheme } from '@app/themes/default';
 
-import { Home } from '@app/screens/Home';
+import { Routes } from '@app/routes';
 import { Loading } from '@app/components/Loading';
 
 export default function App() {
@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      {fontsLoaded ? <Home /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
       <StatusBar style="dark" />
     </ThemeProvider>
   );
