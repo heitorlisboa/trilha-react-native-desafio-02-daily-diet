@@ -1,4 +1,4 @@
-import { Container } from './styles';
+import { BottomGradient, Container } from './styles';
 
 import { Header } from './components/Header';
 import { Percent } from './components/Percent';
@@ -10,6 +10,7 @@ export function Home() {
       <Header />
       <Percent />
       <Meals />
+      <BottomGradient />
     </Container>
   );
 }
