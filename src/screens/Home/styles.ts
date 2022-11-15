@@ -1,21 +1,8 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { cssFontSizeAndLineHeight } from '@app/utils/css-font-size-and-line-height';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-
   background-color: ${({ theme }) => theme.colors['gray-50']};
-
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Title = styled.Text`
-  ${({ theme }) => css`
-    color: ${theme.colors['gray-900']};
-    font-family: ${theme.fontFamily.bold};
-    ${cssFontSizeAndLineHeight(theme.fontSize['2xl'])}
-  `}
+  padding: 36px 24px;
 `;
