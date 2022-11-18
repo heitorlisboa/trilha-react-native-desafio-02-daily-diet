@@ -1,5 +1,4 @@
 import {
-  Container,
   InfoBox,
   InfoBoxRow,
   InfoBoxSubtitle,
@@ -9,7 +8,7 @@ import {
 
 export function Content() {
   return (
-    <Container>
+    <>
       <Title>Estatísticas gerais</Title>
 
       <InfoBox color="neutral">
@@ -35,6 +34,6 @@ export function Content() {
           <InfoBoxSubtitle>refeições fora da dieta</InfoBoxSubtitle>
         </InfoBox>
       </InfoBoxRow>
-    </Container>
+    </>
   );
 }

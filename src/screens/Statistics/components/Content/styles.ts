@@ -2,19 +2,6 @@ import styled, { css } from 'styled-components/native';
 
 import { cssFontSizeAndLineHeight } from '@app/utils/css-font-size-and-line-height';
 
-export const Container = styled.View`
-  flex: 1;
-
-  background-color: ${({ theme }) => theme.colors['gray-50']};
-
-  padding: 32px 24px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  shadow-color: black;
-  shadow-opacity: 0.05;
-  shadow-radius: 15px;
-`;
-
 export const Title = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors['gray-900']};
