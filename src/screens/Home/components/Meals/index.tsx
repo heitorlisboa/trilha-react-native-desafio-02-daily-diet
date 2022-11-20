@@ -85,6 +85,7 @@ export function Meals() {
         sections={data}
         renderItem={({ item }) => (
           <MealCard
+            mealId={item.id}
             title={item.name}
             dateTime={item.dateTime}
             inDiet={item.inDiet}
