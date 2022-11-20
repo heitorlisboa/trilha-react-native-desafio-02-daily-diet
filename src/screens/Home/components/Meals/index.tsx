@@ -1,4 +1,5 @@
 import { SectionList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Plus } from 'phosphor-react-native';
 
 import {
@@ -63,10 +64,20 @@ const data = [
 ];
 
 export function Meals() {
+  const navigation = useNavigation();
+  function handleGoToRegisterMeal() {
+    navigation.navigate('registerMeal');
+  }
+
   return (
     <Container>
       <Title>Refeições</Title>
-      <Button style={{ marginTop: 8 }} title="Nova refeição" Icon={Plus} />
+      <Button
+        style={{ marginTop: 8 }}
+        title="Nova refeição"
+        Icon={Plus}
+        onPress={handleGoToRegisterMeal}
+      />
 
       <SectionList
         style={{ marginTop: 32 }}
