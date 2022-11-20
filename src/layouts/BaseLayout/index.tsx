@@ -9,6 +9,7 @@ import {
   type ContainerColorProp,
   ContentContainer,
   HeaderContainer,
+  InnerContainer,
 } from './styles';
 
 type BaseLayoutProps = {
@@ -36,17 +37,19 @@ export function BaseLayout({
 
   return (
     <Container color={color}>
-      <HeaderContainer style={headerContainerStyle}>
-        <BackButton onPress={handleGoBack}>
-          <BackIcon color={color} />
-        </BackButton>
+      <InnerContainer>
+        <HeaderContainer style={headerContainerStyle}>
+          <BackButton onPress={handleGoBack}>
+            <BackIcon color={color} />
+          </BackButton>
 
-        <HeaderFc />
-      </HeaderContainer>
+          <HeaderFc />
+        </HeaderContainer>
 
-      <ContentContainer style={contentContainerStyle}>
-        <ContentFc />
-      </ContentContainer>
+        <ContentContainer style={contentContainerStyle}>
+          <ContentFc />
+        </ContentContainer>
+      </InnerContainer>
     </Container>
   );
 }

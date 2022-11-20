@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArrowLeft, type IconProps } from 'phosphor-react-native';
+import type { ScrollViewProps } from 'react-native';
 
 enum ContainerColors {
   'neutral' = 'gray-200',
@@ -17,6 +18,13 @@ export const Container = styled(SafeAreaView)<{
   background-color: ${({ theme, color }) =>
     theme.colors[ContainerColors[color]]};
 `;
+
+export const InnerContainer = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+  scrollEnabled: false,
+} as ScrollViewProps)``;
 
 export const HeaderContainer = styled.View`
   position: relative;
