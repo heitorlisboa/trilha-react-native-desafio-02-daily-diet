@@ -5,6 +5,7 @@ import type { RoutesWithParams } from '@app/@types/navigation';
 import { Home } from '@app/screens/Home';
 import { Statistics } from '@app/screens/Statistics';
 import { RegisterMeal } from '@app/screens/RegisterMeal';
+import { Feedback } from '@app/screens/Feedback';
 
 const Stack = createNativeStackNavigator<RoutesWithParams>();
 
@@ -19,6 +20,7 @@ export function AppRoutes() {
       <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="statistics" component={Statistics} />
       <Stack.Screen name="registerMeal" component={RegisterMeal} />
+      <Stack.Screen name="feedback" component={Feedback} />
     </Stack.Navigator>
   );
 }
