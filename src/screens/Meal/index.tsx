@@ -21,6 +21,11 @@ export function Meal() {
   }
 
   const navigation = useNavigation();
+
+  function handleGoToEditMeal() {
+    navigation.navigate('editMeal', { id: '' });
+  }
+
   function handleDeleteMeal() {
     // Redirecting the user to the home screen
     navigation.navigate('home');
@@ -44,6 +49,7 @@ export function Meal() {
             style={{ marginTop: 'auto' }}
             title="Editar refeição"
             Icon={PencilSimpleLine}
+            onPress={handleGoToEditMeal}
           />
           <Button
             style={{ marginTop: 8 }}

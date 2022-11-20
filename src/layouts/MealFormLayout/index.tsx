@@ -40,12 +40,22 @@ type MealFormProps =
 
 export function MealFormLayout(props: MealFormProps) {
   const currentDate = new Date();
-  // TODO: Use values from stored meal as default values when action is 'edit'
+  const formDefaultValues: Partial<MealFormSchema> =
+    props.action === 'register'
+      ? {
+          date: currentDate,
+          time: currentDate,
+        }
+      : {
+          name: 'Sanduíche',
+          description:
+            'Sanduíche de pão integral com atum e salada de alface e tomate',
+          date: new Date(2022, 7, 12),
+          time: new Date(2022, 7, 12, 16),
+          inDiet: 'true',
+        };
   const { control, handleSubmit } = useForm<MealFormSchema>({
-    defaultValues: {
-      date: currentDate,
-      time: currentDate,
-    },
+    defaultValues: formDefaultValues,
   });
 
   const titleText =

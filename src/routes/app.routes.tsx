@@ -7,6 +7,7 @@ import { Statistics } from '@app/screens/Statistics';
 import { RegisterMeal } from '@app/screens/RegisterMeal';
 import { Feedback } from '@app/screens/Feedback';
 import { Meal } from '@app/screens/Meal';
+import { EditMeal } from '@app/screens/EditMeal';
 
 const Stack = createNativeStackNavigator<RoutesWithParams>();
 
@@ -23,6 +24,7 @@ export function AppRoutes() {
       <Stack.Screen name="registerMeal" component={RegisterMeal} />
       <Stack.Screen name="feedback" component={Feedback} />
       <Stack.Screen name="meal" component={Meal} />
+      <Stack.Screen name="editMeal" component={EditMeal} />
     </Stack.Navigator>
   );
 }
