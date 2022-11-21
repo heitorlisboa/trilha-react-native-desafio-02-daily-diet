@@ -1,3 +1,7 @@
+import { format } from 'date-fns';
+
+import type { Meal } from '@app/storage/meals/types';
+
 import {
   DateTime,
   DateTimeTitle,
@@ -8,20 +12,25 @@ import {
   Title,
 } from './styles';
 
-export function MealInfo() {
+type MealInfoProps = {
+  mealData: Meal;
+};
+
+export function MealInfo({ mealData }: MealInfoProps) {
+  const dateTimeText = format(mealData.dateTime, "dd'/'MM'/'yyyy' às 'HH':'mm");
+  const mealBadgeText = mealData.inDiet ? 'dentro da dieta' : 'fora da dieta';
+
   return (
     <>
-      <Title>Sanduíche</Title>
-      <Description>
-        Sanduíche de pão integral com atum e salada de alface e tomate
-      </Description>
+      <Title>{mealData.name}</Title>
+      <Description>{mealData.description}</Description>
 
       <DateTimeTitle>Data e hora</DateTimeTitle>
-      <DateTime>12/08/2022 às 16:00</DateTime>
+      <DateTime>{dateTimeText}</DateTime>
 
       <Tag>
-        <TagIcon inDiet={true} />
-        <TagText>dentro da dieta</TagText>
+        <TagIcon inDiet={mealData.inDiet} />
+        <TagText>{mealBadgeText}</TagText>
       </Tag>
     </>
   );

@@ -7,3 +7,8 @@ export type Meal = {
 };
 
 export type MealWithoutId = Omit<Meal, 'id'>;
+
+export type MealsGroupedByDate = {
+  date: Date;
+  data: Meal[];
+};

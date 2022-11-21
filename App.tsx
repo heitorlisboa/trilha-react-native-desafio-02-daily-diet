@@ -1,3 +1,5 @@
+import 'react-native-get-random-values';
+
 import {
   useFonts,
   NunitoSans_400Regular,

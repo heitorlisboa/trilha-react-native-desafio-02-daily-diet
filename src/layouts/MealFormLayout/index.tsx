@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
+import { Alert } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { getHours, getMinutes, set } from 'date-fns';
 
+import { getMealById } from '@app/storage/meals/get-meal-by-id';
 import type { MealWithoutId } from '@app/storage/meals/types';
 
 import {
@@ -40,22 +43,11 @@ type MealFormProps =
 
 export function MealFormLayout(props: MealFormProps) {
   const currentDate = new Date();
-  const formDefaultValues: Partial<MealFormSchema> =
-    props.action === 'register'
-      ? {
-          date: currentDate,
-          time: currentDate,
-        }
-      : {
-          name: 'Sanduíche',
-          description:
-            'Sanduíche de pão integral com atum e salada de alface e tomate',
-          date: new Date(2022, 7, 12),
-          time: new Date(2022, 7, 12, 16),
-          inDiet: 'true',
-        };
-  const { control, handleSubmit } = useForm<MealFormSchema>({
-    defaultValues: formDefaultValues,
+  const { control, reset, handleSubmit } = useForm<MealFormSchema>({
+    defaultValues: {
+      date: currentDate,
+      time: currentDate,
+    },
   });
 
   const titleText =
@@ -86,6 +78,33 @@ export function MealFormLayout(props: MealFormProps) {
 
     props.onSubmit(mealData);
   }
+
+  useEffect(() => {
+    async function initializeFormState() {
+      if (props.action !== 'edit') return;
+
+      try {
+        const meal = await getMealById(props.mealId);
+
+        if (!meal) {
+          return Alert.alert('Editar refeição', 'Refeição não encontrada.');
+        }
+
+        reset({
+          name: meal.name,
+          description: meal.description,
+          date: meal.dateTime,
+          time: meal.dateTime,
+          inDiet: meal.inDiet ? 'true' : 'false',
+        });
+      } catch (error) {
+        Alert.alert('Editar refeição', 'Não foi possível carregar a refeição.');
+        console.error(error);
+      }
+    }
+
+    initializeFormState();
+  }, []);
 
   return (
     <BaseLayout
