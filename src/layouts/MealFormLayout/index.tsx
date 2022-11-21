@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, type FieldErrors, useForm } from 'react-hook-form';
 import { getHours, getMinutes, set } from 'date-fns';
 
 import { getMealById } from '@app/storage/meals/get-meal-by-id';
@@ -79,6 +79,25 @@ export function MealFormLayout(props: MealFormProps) {
     props.onSubmit(mealData);
   }
 
+  function handleInvalidSubmit(errors: FieldErrors<MealFormSchema>) {
+    // Getting all the form error messages
+    const errorMessages = Object.values(errors)
+      .filter((error) => error.message !== undefined)
+      .map((error) => error.message as string);
+
+    // Combining the errors on a single string
+    const combinedErrorMessages = errorMessages.reduce(
+      (prevValue, currentError, index, array) => {
+        const isLastError = index === array.length - 1;
+        // Each line will look like '- Error message'
+        return prevValue + '- ' + currentError + (isLastError ? '' : '\n');
+      },
+      ''
+    );
+
+    Alert.alert('Refeição inválida', combinedErrorMessages);
+  }
+
   useEffect(() => {
     async function initializeFormState() {
       if (props.action !== 'edit') return;
@@ -117,7 +136,14 @@ export function MealFormLayout(props: MealFormProps) {
             <Controller
               name="name"
               control={control}
-              rules={{ required: true }}
+              rules={{
+                maxLength: {
+                  value: 50,
+                  message:
+                    'O nome deve ter um tamanho máximo de 50 caracteres.',
+                },
+                required: 'O nome é obrigatório.',
+              }}
               render={({ field: { value, onChange } }) => (
                 <TextInput value={value} onChangeText={onChange} />
               )}
@@ -129,7 +155,14 @@ export function MealFormLayout(props: MealFormProps) {
             <Controller
               name="description"
               control={control}
-              rules={{ required: true }}
+              rules={{
+                maxLength: {
+                  value: 250,
+                  message:
+                    'A descrição deve ter um tamanho máximo de 250 caracteres.',
+                },
+                required: 'A descrição é obrigatória.',
+              }}
               render={({ field: { value, onChange } }) => (
                 <TextInput
                   style={{ height: 120 }}
@@ -148,7 +181,7 @@ export function MealFormLayout(props: MealFormProps) {
               <Controller
                 name="date"
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: 'A data é obrigatória.' }}
                 render={({ field: { value, onChange } }) => (
                   <DateTimeInput
                     mode="date"
@@ -164,7 +197,7 @@ export function MealFormLayout(props: MealFormProps) {
               <Controller
                 name="time"
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: 'O horário é obrigatório.' }}
                 render={({ field: { value, onChange } }) => (
                   <DateTimeInput
                     mode="time"
@@ -180,7 +213,9 @@ export function MealFormLayout(props: MealFormProps) {
           <Controller
             name="inDiet"
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: 'É necessário informar se a refeição está na dieta.',
+            }}
             render={({ field: { value, onChange } }) => (
               <RadioGroup.Root
                 value={value === undefined ? null : value}
@@ -222,7 +257,7 @@ export function MealFormLayout(props: MealFormProps) {
           <Button
             style={{ marginTop: 'auto' }}
             title={submitButtonText}
-            onPress={handleSubmit(handleConfirm)}
+            onPress={handleSubmit(handleConfirm, handleInvalidSubmit)}
           />
         </>
       }
