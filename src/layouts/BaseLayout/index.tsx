@@ -39,7 +39,10 @@ export function BaseLayout({
     <Container color={color}>
       <InnerContainer>
         <HeaderContainer style={headerContainerStyle}>
-          <BackButton onPress={handleGoBack}>
+          <BackButton
+            accessibilityLabel="Voltar para a tela anterior"
+            onPress={handleGoBack}
+          >
             <BackIcon color={color} />
           </BackButton>
 
