@@ -18,8 +18,8 @@ import { Title } from './styles';
 
 import { BaseLayout } from '@app/layouts/BaseLayout';
 import { Loading } from '@app/components/Loading';
-import { DeleteMealModal } from './DeleteMealModal';
-import { MealInfo } from './MealInfo';
+import { DeleteMealModal } from './components/DeleteMealModal';
+import { MealInfo } from './components/MealInfo';
 import { Button } from '@app/components/Button';
 
 type MealRouteProp = RouteProp<RoutesWithParams, 'meal'>;
