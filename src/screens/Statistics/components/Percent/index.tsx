@@ -1,9 +1,13 @@
 import { Subtitle, Title } from './styles';
 
-export function Percent() {
+type PercentProps = {
+  percentOfDietMeals: number;
+};
+
+export function Percent({ percentOfDietMeals }: PercentProps) {
   return (
     <>
-      <Title>90,86%</Title>
+      <Title>{percentOfDietMeals.toFixed(2)}%</Title>
       <Subtitle>das refeições dentro da dieta</Subtitle>
     </>
   );

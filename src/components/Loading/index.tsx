@@ -1,8 +1,12 @@
 import { Container, LoadIndicator } from './styles';
 
-export function Loading() {
+type LoadingProps = {
+  transparent?: boolean;
+};
+
+export function Loading({ transparent = false }: LoadingProps) {
   return (
-    <Container>
+    <Container transparent={transparent}>
       <LoadIndicator />
     </Container>
   );

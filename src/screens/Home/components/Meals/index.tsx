@@ -1,12 +1,10 @@
-import { useCallback, useState } from 'react';
-import { Alert, SectionList } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { SectionList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Plus } from 'phosphor-react-native';
 import { format } from 'date-fns';
 
-import { getAllMeals } from '@app/storage/meals/get-all-meals';
 import { groupMealsByDate } from '@app/storage/meals/group-meals-by-date';
-import type { MealsGroupedByDate } from '@app/storage/meals/types';
+import type { Meal } from '@app/storage/meals/types';
 
 import {
   Container,
@@ -19,36 +17,18 @@ import { Button } from '@app/components/Button';
 import { Loading } from '@app/components/Loading';
 import { MealCard } from '../MealCard';
 
-export function Meals() {
-  const [isLoading, setIsLoading] = useState(false);
+type MealsProps = {
+  mealsData: Meal[];
+  isLoading: boolean;
+};
 
-  const [groupedMeals, setGroupedMeals] = useState<MealsGroupedByDate[]>([]);
+export function Meals({ mealsData, isLoading }: MealsProps) {
+  const groupedMeals = groupMealsByDate(mealsData);
 
   const navigation = useNavigation();
   function handleGoToRegisterMeal() {
     navigation.navigate('registerMeal');
   }
-
-  useFocusEffect(
-    useCallback(() => {
-      async function updateGroupedMealsState() {
-        setIsLoading(true);
-
-        try {
-          const meals = await getAllMeals();
-          const mealsGroupedByDate = groupMealsByDate(meals);
-          setGroupedMeals(mealsGroupedByDate);
-        } catch (error) {
-          Alert.alert('Refeições', 'Não foi possível carregar as refeições.');
-          console.error(error);
-        }
-
-        setIsLoading(false);
-      }
-
-      updateGroupedMealsState();
-    }, [])
-  );
 
   return (
     <Container>
